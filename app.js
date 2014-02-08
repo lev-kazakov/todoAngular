@@ -1,4 +1,4 @@
-var miniexpress = require(".\server\miniexpress");
+var miniexpress = require("./server/miniExpress");
 var uuid = require('node-uuid');
 
 var app = miniexpress();
