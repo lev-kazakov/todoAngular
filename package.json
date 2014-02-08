@@ -1,0 +1,31 @@
+{
+  "name": "todoAngular",
+  "version": "1.0.0",
+  "description": "ToDO app, implemented using Angular.js MVC framework",
+  "main": "app.js",
+  "dependencies": {
+    "node-uuid": "~1.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lev-kazakov/todoAngular.git"
+  },
+  "keywords": [
+    "todo",
+    "angular"
+  ],
+  "author": "gal & lev",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/lev-kazakov/todoAngular/issues"
+  },
+  "homepage": "https://github.com/lev-kazakov/todoAngular",
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  }
+}
