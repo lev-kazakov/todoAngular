@@ -1,0 +1,186 @@
+<html>
+	<head>
+		<title>TCP server - Test specification</title>
+        <style>            
+            th, td {
+                border: 1px solid black;
+                padding:10px;
+            }
+            
+            table {
+                border: 1px solid black;
+            }
+        </style>
+	</head>
+	<body>
+		<section>
+			<h1>Test specification (tester.js)</h1>
+            <p>
+                <b>Usage : node tester <#test></b>
+                <h4>Tests specification</h4>
+                <table cellspacing="0">
+                    <tr>
+                        <th>#</th>
+                        <th>Test details</th>
+                        <th>Expected</th>
+                    </tr>
+                     <tr>
+                        <td>0</td>
+                        <td>Test error response when requesting a file that doesn't exist</td>
+                        <td>Client should get a response with error code 404 (Not found)</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Test error response when the request is not a get request</td>
+                        <td>Client should get a response with error code 405 (Method not allowed)</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Test server load handling</td>
+                        <td>The server shouldn't crash</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Test persistent connection</td>
+                        <td>Data received twice and then the connection ends right away</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Test persistent connection and sending two messages in one buffer</td>
+                        <td>Data received twice and then the connection ends right away</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Test handling an http request the got splitted in it's request line to two buffers into to data buffers in the TCP connection</td>
+                        <td>Data should be joined and the request should be handled</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Test handling an http request that got splitted in it's body to two data buffers in the TCP connection</td>
+                        <td>Data should be joined and the request should be handled</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Test handling an http request the got splitted to five different parts</td>
+                        <td>Data should be joined and the request should be handled</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Test handling two consecutive http request (one arrives 1 second after the other) when the first request doesn't ask a persistent connection</td>
+                        <td>First request should be handled and the connection should be closed right after it (The second request shouldn't be handled)</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Test request params</td>
+                        <td>Success should be printed to the standard output</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Test request optional params (Part 1)</td>
+                        <td>Success should be printed to the standard output</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>Test request optional params (Part 2)</td>
+                        <td>Success should be printed to the standard output</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>Test request query</td>
+                        <td>Success should be printed to the standard output</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>Test request body when urlencoded is sent</td>
+                        <td>Success should be printed to the standard output</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>Test request body when json is sent</td>
+                        <td>Success should be printed to the standard output</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>Verify that the cookies object is empty by default, when the cookieParser middleware is used and test cookie parser middleware</td>
+                        <td>Success should be printed to the standard output</td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td>Test request path property</td>
+                        <td>Success should be printed to the standard output</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>Test app.route object</td>
+                        <td>Success should be printed to the standard output</td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>Test prefix support for the route given to app.use</td>
+                        <td>Success should be printed to the standard output</td>
+                    </tr>
+                    <tr>
+						<td>19</td>
+						<td>Test res.status()</td>
+						<td>No failure message should be printed</td>
+					</tr>
+					<tr>
+						<td>20</td>
+						<td>Test res.get(field) as well as res.set(field, [value]) aliased as res.header(field, [value])</td>
+						<td>No failure message should be printed</td>
+					</tr>
+					<tr>
+						<td>21</td>
+						<td>Test res.cookie(name, value, [options])</td>
+						<td>No failure message should be printed</td>
+					</tr>
+					<tr>
+						<td>22</td>
+						<td>Test res.send([body|status], [body])</td>
+						<td>No failure message should be printed</td>
+					</tr>
+					<tr>
+						<td>23</td>
+						<td>Test res.json([body|status], [body])</td>
+						<td>No failure message should be printed</td>
+					</tr>
+					<tr>
+						<td>24</td>
+						<td>Test miniExpress.static(rootFolder) existant file</td>
+						<td>No failure message should be printed</td>
+					</tr>
+					<tr>
+						<td>25</td>
+						<td>Test miniExpress.static(rootFolder) file not under root folder</td>
+						<td>No failure message should be printed</td>
+					</tr>
+					<tr>
+						<td>26</td>
+						<td>Test miniExpress.static(rootFolder) not existing file</td>
+						<td>No failure message should be printed</td>
+					</tr>
+					<tr>
+						<td>27</td>
+						<td>Test miniExpress.cookieParser()</td>
+						<td>No failure message should be printed</td>
+					</tr>
+					<tr>
+						<td>28</td>
+						<td>Test miniExpress.json()</td>
+						<td>No failure message should be printed</td>
+					</tr>
+					<tr>
+						<td>29</td>
+						<td>Test miniExpress.urlencoded()</td>
+						<td>No failure message should be printed</td>
+					</tr>
+					<tr>
+						<td>30</td>
+						<td>Test miniExpress.bodyParser()</td>
+						<td>No failure message should be printed</td>
+					</tr>
+                </table>
+            </p>
+		</section>
+	</body>
+</html>
