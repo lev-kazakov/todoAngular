@@ -16,12 +16,35 @@ body {
   width: 100px;
 }
 
-.todos li {
-  clear: both;
-  height: 100px;
-  padding-top: 15px;
+.buttons, .tasks {
+    cursor: hand;
 }
 
-.buttons, .tasks {
-    cursor: hand
+table {
+    border-spacing: 0;
+}
+
+table , th, td {
+    border: 1px solid black;
+}
+
+table td, table th {
+    padding: 10;
+}
+
+.taskIndex {
+    width: 5px;
+}
+
+.taskStatus {
+    width: 70px;
+}
+
+.taskDescription {
+    width: 500px;
+    max-width: 500px;
+}
+
+.taskDelete {
+    width: 20px;
 }

@@ -12,13 +12,13 @@ ToDoListControllers.controller('ToDoListCtrl', ['$scope', '$http', '$location',
     // Get the current todos from the server
     $scope.getList = function () {
         $http.get('/item').
-            success(function (data) {
-                $scope.todos = data;
-            }).
-            error(function (data) {
-                $location.path("/login").replace();
-                alert(data.error);
-            });
+        success(function (data) {
+            $scope.todos = data;
+        }).
+        error(function (data) {
+            $location.path("/login").replace();
+            alert(data.error);
+        });
     };
  
     // Functions manipulating the todo list
@@ -69,7 +69,7 @@ ToDoListControllers.controller('ToDoListCtrl', ['$scope', '$http', '$location',
     
     $scope.addTask = function () {
         var newTask = {
-            "id": Math.random(),
+            "id": Math.random().toString().replace('.', ''),
             "value": $("#newTaskDesc").val(),
             "status": 0
         };
@@ -128,7 +128,7 @@ ToDoListControllers.controller('ToDoListCtrl', ['$scope', '$http', '$location',
         
         $.ajax({
             url: '/item',
-            data: {"id": -1},
+            data: {"id": '-1'},
             type: 'DELETE',
             dataType:'json',
             success: function(data){
@@ -229,7 +229,7 @@ ToDoListControllers.controller('LoginCtrl', ['$scope', '$http', '$window',
 		    success: function (data) {
                 console.log(data);
                 if (data.status === 0) {
-                    $window.location.href = '/index.html#/todoList'
+                    $window.location.href = '/index.html#/todoList';
                     $scope.$apply();
                 } else {
                     alert('Wrong login details! Please try again');
@@ -260,7 +260,7 @@ ToDoListControllers.controller('LoginCtrl', ['$scope', '$http', '$window',
 		    type: 'POST',
 		    dataType:'json',
 		    success: function (data) {
-                $window.location.href = '/index.html#/todoList'
+                $window.location.href = '/index.html#/todoList';
                 $scope.$apply();
 	    	},
             error: function (XMLHttpRequest, textStatus, errorThrown) {

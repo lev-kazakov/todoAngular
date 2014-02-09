@@ -1,23 +1,18 @@
 var miniexpress = require("./server/miniExpress");
 var uuid = require('node-uuid');
-
 var app = miniexpress();
 
-var users = {
+var users = {};
 
-};
-
-var key2user = {
-
-};
+var key2user = {};
 
 app.use(miniexpress.bodyParser());
 app.use(miniexpress.cookieParser());
 
 app.delete("/item", function (req, res, next) {
     var todos = users[key2user[req.cookies.key]].todos
-    var idToDelete = +req.body.id;
-    if (idToDelete === -1) {
+    var idToDelete = req.body.id;
+    if (idToDelete === '-1') {
         for (var id in todos) {
             if (todos[id].status === 1) {
                 delete todos[id];
@@ -36,7 +31,6 @@ app.post('/item', function (req, res, next) {
     // Workaround: req.bodt.status is received as string, not as a number as expected
     req.body.status = +req.body.status;
     
-    // TODO: how do we send the text?
     if (req.body.id in todos) {
         res.json(500, {error: 'todoId is already taken'});
         return;
@@ -61,16 +55,6 @@ app.put("/item", function(req, res, next) {
     res.json(200, {status: 0});
 });
 
-// preventing intrusions
-// app.get('/partials/todoList.html', function(req, res, next) {
-    // if (!req.cookies || !req.cookies.key || !(req.cookies.key in key2user)) {
-        // console.log('ATTACK!!!');
-        // res.send('Please login or register');
-    // } else {
-        // next();
-    // }
-// });
-
 // For getting all tasks in the todo list
 app.get("/item", function(req, res, next) {
     if (!req.cookies || !req.cookies.key || !(req.cookies.key in key2user)) {
@@ -83,14 +67,14 @@ app.get("/item", function(req, res, next) {
 
 app.get('/login', function (req, res, next) {
     console.log('User login');
+    
     if (req.query.username in users) {
         if (req.query.password === users[req.query.username].password) {
-            // set-cookie
+            // set cookie
             var key = uuid.v4()
             users[req.query.username].sessionId = key
             key2user[key] = req.query.username
             res.cookie('key', key, { maxAge: 900000, httpOnly: true })
-            
             res.json(200, {status:0});
         } else {
             res.json(200, {status: 1, error: 'Wrong password'});
@@ -107,6 +91,7 @@ app.post('/register', function (req, res, next) {
     } else {
         users[req.body.username] = req.body;
         users[req.body.username].todos = {}
+        
         // set-cookie
         var key = uuid.v4()
         users[req.body.username].sessionId = key

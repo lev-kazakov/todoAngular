@@ -6,32 +6,32 @@
             <hr>
             <button class='buttons' ng-click="markAll()">Mark all</button>
             <button class='buttons' ng-click="clearCompleted()">Clear completed</button>
-            
+            <br><br>
+            Filters:
             <button class='buttons' ng-click='filterStatusValues = [0, 1]'>All</button>
             <button class='buttons' ng-click='filterStatusValues = [0]'>Active</button>
             <button class='buttons' ng-click='filterStatusValues = [1]'>Completed</button>
-            <ul>
-                <p>
-                    Add task: <input type="text" id="newTaskDesc" ng-click='watchNewTaskEntries()'>
-                    <button id='addTaskButton' class='buttons' ng-click='addTask()'>add task</button>
-                </p>
-                <li ng-repeat="(todoId, todo) in getFilteredTodos()">
-                    <button class='buttons' ng-click="markTask(todoId)">V</button>
-                    {{todo.id}} <span class='tasks' id='taskValue{{todoId}}' contenteditable="true" ng-focus='watchTaskEdit(todoId)' ng-blur='reportTaskEdit(todoId)'>{{todo.value}}</span> {{todo.status}}
-                    <button class='buttons' ng-click="dropTask(todoId)">X</button>
-                </li>
-            </ul>
-            
-            <b>Number of active tasks: {{getNumberOfActiveTasks()}}</b><br>
-            <small>Click on a task to edit it</small>
-            
-            <h3>For testing purposes - DELETE!</h3>
             <p>
-                {{todos}}
+                Add task: <input type="text" id="newTaskDesc" ng-click='watchNewTaskEntries()'>
+                <button id='addTaskButton' class='buttons' ng-click='addTask()'>add task</button>
             </p>
-            
-            filterStatusValues: {{filterStatusValues}};
-            
+            <table>
+                <tr>
+                    <th class='taskIndex'>#</th>
+                    <th class='taskStatus'>Status</th>
+                    <th class='taskDescription'>Description</th>
+                    <th class='taskDelete'></th>
+                </td>
+                <tr ng-repeat="(todoId, todo) in getFilteredTodos()">   
+                    <td class='taskIndex'><span class='buttons' ng-click="markTask(todoId)">{{$index + 1}}</span></td>                    
+                    <td class='taskStatus'>{{(todo.status === 0)? 'Active' : 'Completed'}}</td>
+                    <td class='taskDescription'><span class='tasks' id='taskValue{{todoId}}' contenteditable="true" ng-focus='watchTaskEdit(todoId)' ng-blur='reportTaskEdit(todoId)'>{{todo.value}}</span></td>
+                    <td class='taskDelete'><img class='buttons' src='partials/images/bin.jpg' ng-click="dropTask(todoId)" /></td>
+                </tr>
+            </table>
+            <br>
+            <b>Number of active tasks: {{getNumberOfActiveTasks()}}</b><br>
+            <small>Click on a task to edit it</small>            
         </div>
     </div>
 </div>
