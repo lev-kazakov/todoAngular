@@ -17,7 +17,7 @@ ToDoListControllers.controller('ToDoListCtrl', ['$scope', '$http', '$location',
         }).
         error(function (data) {
             $location.path("/login").replace();
-            alert(data.error);
+            alert(data.msg);
         });
     };
  

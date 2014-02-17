@@ -32,7 +32,7 @@ app.post('/item', function (req, res, next) {
     req.body.status = +req.body.status;
     
     if (req.body.id in todos) {
-        res.json(500, {error: 'todoId is already taken'});
+        res.json(500, {status: 1, msg: 'todoId is already taken'});
         return;
     }
     todos[req.body.id] = req.body;
@@ -46,7 +46,7 @@ app.put("/item", function(req, res, next) {
     
     // Verify that the given task id is legal
     if (!(taskId in todos)) {
-        res.json(200, {status: 1, error: 'task id doesnt exist'});
+        res.json(200, {status: 1, msg: 'task id doesnt exist'});
         return;
     }
     
@@ -59,7 +59,7 @@ app.put("/item", function(req, res, next) {
 app.get("/item", function(req, res, next) {
     if (!req.cookies || !req.cookies.key || !(req.cookies.key in key2user)) {
         console.log('ATTACK!!!');
-        res.json(400, {status: 1, error: 'please login or register'})
+        res.json(400, {status: 1, msg: 'please login or register'})
     } else {
         res.json(users[key2user[req.cookies.key]].todos);
     }
