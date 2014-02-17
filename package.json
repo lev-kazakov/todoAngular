@@ -2,7 +2,7 @@
   "name": "todoAngular",
   "version": "1.0.0",
   "description": "ToDO app, implemented using Angular.js MVC framework",
-  "main": "app.js",
+  "main": "main.js",
   "dependencies": {
     "node-uuid": "~1.4.1"
   },
